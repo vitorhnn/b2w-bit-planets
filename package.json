@@ -1,0 +1,22 @@
+{
+  "name": "b2w-bit-planets",
+  "version": "1.0.0",
+  "description": "API RESTful de planetas de Star Wars, feita para um desafio back-end da B2W BIT",
+  "main": "src/index.js",
+  "repository": "https://github.com/vitorhnn/b2w-bit-planets",
+  "author": "Victor Hermann Chiletto",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0"
+  }
+}
