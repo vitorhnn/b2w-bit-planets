@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
     title: B2W Planetas Star Wars
-    description: API RESTful de planetaas de Star Wars, feita para um desafio de back-end da B2W BIT
+    description: API RESTful de planetas de Star Wars, feita para um desafio de back-end da B2W BIT
     contact:
         email: v@hnn.net.br
     version: 1.0.0
 tags:
     - name: Planetas
-      description: Informações sobre planetaas
+      description: Informações sobre planetas
 paths:
     /planetas:
         get:
