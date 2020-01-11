@@ -3,6 +3,8 @@ version: "3"
 services:
     planets-api:
         build: .
+        depends_on: 
+            - mongo
         ports:
             - 3000:3000
         environment:
@@ -10,6 +12,8 @@ services:
             DB_PASSWORD: mongo
             DB_HOSTNAME: mongo
             DB_PORT: 27017
+        volumes:
+            - .:/app
     mongo:
         image: mongo
         volumes:
