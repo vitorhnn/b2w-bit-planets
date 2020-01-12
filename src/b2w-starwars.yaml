@@ -43,20 +43,19 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/InsertedPlaneta"
-    /planetas/{planeta-id}:
+    /planetas/{id}:
         get:
             tags:
                 - Planetas
             summary: Buscar planeta por id
-            operationId: getPlanetById
+            operationId: getPlanetaById
             parameters:
-                - name: planeta-id
+                - name: id
                   in: path
                   description: ID do planeta a ser retornado
                   required: true
                   schema:
                     type: string
-                    format: uuid
             responses:
                 200:
                     description: Operação realizada com sucesso
@@ -64,11 +63,13 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/InsertedPlaneta"
+                404:
+                    description: Planeta não encontrado
         delete:
             tags:
                 - Planetas
             summary: Remover planeta por id
-            operationId: deletePlanet
+            operationId: deletePlaneta
             parameters:
                 - name: planeta-id
                   in: path
@@ -76,18 +77,19 @@ paths:
                   required: true
                   schema:
                     type: string
-                    format: uuid
             responses:
                 200:
                     description: Planeta removido com sucesso
-    /planetas/by-nome/{planeta-nome}:
+                404:
+                    description: Planeta não encontrado
+    /planetas/by-nome/{nome}:
         get:
             tags:
                 - Planetas
             summary: Buscar planeta por nome
-            operationId: getPlanetByNome
+            operationId: getPlanetaByNome
             parameters:
-                - name: planeta-nome
+                - name: nome
                   in: path
                   description: Nome do planeta a ser retornado
                   required: true
@@ -100,8 +102,8 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/InsertedPlaneta"
-            
-                                
+                404:
+                    description: Planeta não encontrado
 
 components:
     schemas:
@@ -110,13 +112,16 @@ components:
                 nome:
                     type: string
                 clima:
-                    type: string
+                    type: array
+                    items:
+                        type: string
                 terreno:
-                    type: string
+                    type: array
+                    items:
+                        type: string
         InsertedPlaneta:
             allOf:
                 - $ref: "#/components/schemas/Planeta"
             properties:
-                id:
+                _id:
                     type: string
-                    format: uuid

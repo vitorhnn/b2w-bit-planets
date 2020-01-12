@@ -1,20 +1,20 @@
 const { connect, connection, model, Schema } = require('mongoose');
 
-const { DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT } = process.env;
+const { DB_STRING } = process.env;
 
-connect(`mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOSTNAME}:${DB_PORT}`, {
+connect(DB_STRING, {
   useNewUrlParser: true,
 });
 
 connection.on('error', () => console.error('mongoose connection error'));
 connection.once('open', () => console.log('mongoose connection open'));
 
-const planetSchema = new Schema({
-  nome: String,
-  clima: String,
-  terreno: String,
+const planetaSchema = new Schema({
+  nome: { type: String, index: true },
+  clima: [String],
+  terreno: [String],
 });
 
-const Planet = model('Planet', planetSchema);
+const Planeta = model('Planeta', planetaSchema);
 
-module.exports = { Planet };
+module.exports = { Planeta };
