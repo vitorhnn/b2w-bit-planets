@@ -1,149 +1,149 @@
 openapi: 3.0.1
 info:
-    title: B2W Planetas Star Wars
-    description: API RESTful de planetas de Star Wars, feita para um desafio de back-end da B2W BIT
-    contact:
-        email: v@hnn.net.br
-    version: 1.0.0
+  title: B2W Planetas Star Wars
+  description: API RESTful de planetas de Star Wars, feita para um desafio de back-end da B2W BIT
+  contact:
+    email: v@hnn.net.br
+  version: 1.0.0
 tags:
-    - name: Planetas
-      description: Informações sobre planetas
+  - name: Planetas
+    description: Informações sobre planetas
 paths:
-    /planetas:
-        get:
-            tags:
-                - Planetas
-            summary: Listar planetas
-            operationId: getPlanetas
-            responses:
-                200:
-                    description: Operação realizada com sucesso
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/PlanetaWithFilmCount"
-        post:
-            tags:
-                - Planetas
-            summary: Adicionar novo planeta
-            operationId: insertPlaneta
-            requestBody:
-                description: Planeta a ser adicionado no banco de dados
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/Planeta"
-            responses:
-                201:
-                    description: Planeta inserido com sucesso
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/InsertedPlaneta"
-    /planetas/{id}:
-        get:
-            tags:
-                - Planetas
-            summary: Buscar planeta por id
-            operationId: getPlanetaById
-            parameters:
-                - name: id
-                  in: path
-                  description: ID do planeta a ser retornado
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                200:
-                    description: Operação realizada com sucesso
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/PlanetaWithFilmCount"
-                404:
-                    description: Planeta não encontrado
-                400:
-                    description: Requisição inválida
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-        delete:
-            tags:
-                - Planetas
-            summary: Remover planeta por id
-            operationId: deletePlaneta
-            parameters:
-                - name: id
-                  in: path
-                  description: ID do planeta a ser removido
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                200:
-                    description: Planeta removido com sucesso
-                404:
-                    description: Planeta não encontrado
-                400:
-                    description: Requisição inválida
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Error"
-    /planetas/by-nome/{nome}:
-        get:
-            tags:
-                - Planetas
-            summary: Buscar planeta por nome
-            operationId: getPlanetaByNome
-            parameters:
-                - name: nome
-                  in: path
-                  description: Nome do planeta a ser retornado
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                200:
-                    description: Operação realizada com sucesso
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/PlanetaWithFilmCount"
-                404:
-                    description: Planeta não encontrado
+  /planetas:
+    get:
+      tags:
+        - Planetas
+      summary: Listar planetas
+      operationId: getPlanetas
+      responses:
+        200:
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanetaWithFilmCount'
+    post:
+      tags:
+        - Planetas
+      summary: Adicionar novo planeta
+      operationId: insertPlaneta
+      requestBody:
+        description: Planeta a ser adicionado no banco de dados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Planeta'
+      responses:
+        201:
+          description: Planeta inserido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsertedPlaneta'
+  /planetas/{id}:
+    get:
+      tags:
+        - Planetas
+      summary: Buscar planeta por id
+      operationId: getPlanetaById
+      parameters:
+        - name: id
+          in: path
+          description: ID do planeta a ser retornado
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanetaWithFilmCount'
+        404:
+          description: Planeta não encontrado
+        400:
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Planetas
+      summary: Remover planeta por id
+      operationId: deletePlaneta
+      parameters:
+        - name: id
+          in: path
+          description: ID do planeta a ser removido
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Planeta removido com sucesso
+        404:
+          description: Planeta não encontrado
+        400:
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /planetas/by-nome/{nome}:
+    get:
+      tags:
+        - Planetas
+      summary: Buscar planeta por nome
+      operationId: getPlanetaByNome
+      parameters:
+        - name: nome
+          in: path
+          description: Nome do planeta a ser retornado
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanetaWithFilmCount'
+        404:
+          description: Planeta não encontrado
 
 components:
-    schemas:
-        Error:
-            properties:
-                error:
-                    type: string
-        Planeta:
-            properties:
-                nome:
-                    type: string
-                clima:
-                    type: array
-                    items:
-                        type: string
-                terreno:
-                    type: array
-                    items:
-                        type: string
-        InsertedPlaneta:
-            allOf:
-                - $ref: "#/components/schemas/Planeta"
-            properties:
-                _id:
-                    type: string
-        PlanetaWithFilmCount:
-            allOf:
-                - $ref: "#/components/schemas/InsertedPlaneta"
-            properties:
-                quantidadeFilmes:
-                    type: integer
+  schemas:
+    Error:
+      properties:
+        error:
+          type: string
+    Planeta:
+      properties:
+        nome:
+          type: string
+        clima:
+          type: array
+          items:
+            type: string
+        terreno:
+          type: array
+          items:
+            type: string
+    InsertedPlaneta:
+      allOf:
+        - $ref: '#/components/schemas/Planeta'
+      properties:
+        _id:
+          type: string
+    PlanetaWithFilmCount:
+      allOf:
+        - $ref: '#/components/schemas/InsertedPlaneta'
+      properties:
+        quantidadeFilmes:
+          type: integer
