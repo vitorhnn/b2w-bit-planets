@@ -6,13 +6,7 @@ const service = require('../services/planetas');
 
 const router = new Router();
 
-// Listar planetas
-router.get('/', async (_req, res) => {
-  try {
-    const result = await service.getPlanetas();
-
-    return res.status(200).send(result);
-  } catch (err) {
+function commonErrorHandler(res, err) {
     if (err instanceof ApiError) {
       return res.status(err.statusCode).send({
         error: err.message,
@@ -23,6 +17,16 @@ router.get('/', async (_req, res) => {
     return res.status(500).send({
       error: 'Internal server error',
     });
+}
+
+// Listar planetas
+router.get('/', async (_req, res) => {
+  try {
+    const result = await service.getPlanetas();
+
+    return res.status(200).send(result);
+  } catch (err) {
+    return commonErrorHandler(res, err);
   }
 });
 
@@ -39,16 +43,7 @@ router.post('/', async (req, res) => {
 
     return res.status(201).send(result);
   } catch (err) {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).send({
-        error: err.message,
-      });
-    }
-
-    console.error(err);
-    return res.status(500).send({
-      error: 'Internal server error',
-    });
+    return commonErrorHandler(res, err);
   }
 });
 
@@ -61,22 +56,13 @@ router.get('/:id', async (req, res) => {
 
     return res.status(200).send(result);
   } catch (err) {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).send({
-        error: err.message,
-      });
-    }
-
     if (err instanceof Error.CastError) {
       return res.status(400).send({
         error: 'ID inválido',
       });
     }
 
-    console.error(err);
-    return res.status(500).send({
-      error: 'Internal server error',
-    });
+    return commonErrorHandler(res, err);
   }
 });
 
@@ -89,22 +75,13 @@ router.delete('/:id', async (req, res) => {
 
     return res.status(200).send();
   } catch (err) {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).send({
-        error: err.message,
-      });
-    }
-
     if (err instanceof Error.CastError) {
       return res.status(400).send({
         error: 'ID inválido',
       });
     }
 
-    console.error(err);
-    return res.status(500).send({
-      error: 'Internal server error',
-    });
+    return commonErrorHandler(res, err);
   }
 });
 
@@ -117,16 +94,7 @@ router.get('/by-nome/:nome', async (req, res) => {
 
     return res.status(200).send(result);
   } catch (err) {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).send({
-        error: err.message,
-      });
-    }
-
-    console.error(err);
-    return res.status(500).send({
-      error: 'Internal server error',
-    });
+    return commonErrorHandler(res, err);
   }
 });
 

@@ -32,7 +32,8 @@
     "jest": "^24.9.0",
     "mockingoose": "^2.13.2",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "jest": {
     "moduleFileExtensions": [

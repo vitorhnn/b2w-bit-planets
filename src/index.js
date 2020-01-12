@@ -1,29 +1,11 @@
+// initialize our mongoose connection and load .env files
 require('dotenv').config();
 require('./db');
-const express = require('express');
-const bodyParser = require('body-parser');
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const { safeLoad } = require('js-yaml');
-const swaggerUi = require('swagger-ui-express');
 
-const openApiSpec = safeLoad(readFileSync(join(__dirname, 'b2w-starwars.yaml')));
+// load the express server
+const app = require('./server');
 
-const planetasRouter = require('./routes/planetas');
-
-const app = express();
 const port = process.env.API_PORT;
 
-app.use(bodyParser.json());
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
-
-// Routes
-app.use('/planetas', planetasRouter);
-
-// Catch 404
-app.use((_req, res) => {
-  res.status(404).send({ error: 'Not found' });
-});
-
+// run the thing
 app.listen(port, () => console.log(`Planets API listening on ${port}. 👍`));
