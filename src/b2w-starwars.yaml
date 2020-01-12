@@ -145,5 +145,5 @@ components:
             allOf:
                 - $ref: "#/components/schemas/InsertedPlaneta"
             properties:
-                - quantidadeFilmes:
+                quantidadeFilmes:
                     type: integer
