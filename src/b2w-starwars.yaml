@@ -23,7 +23,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/InsertedPlaneta"
+                                    $ref: "#/components/schemas/PlanetaWithFilmCount"
         post:
             tags:
                 - Planetas
@@ -62,16 +62,22 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/InsertedPlaneta"
+                                $ref: "#/components/schemas/PlanetaWithFilmCount"
                 404:
                     description: Planeta não encontrado
+                400:
+                    description: Requisição inválida
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
         delete:
             tags:
                 - Planetas
             summary: Remover planeta por id
             operationId: deletePlaneta
             parameters:
-                - name: planeta-id
+                - name: id
                   in: path
                   description: ID do planeta a ser removido
                   required: true
@@ -82,6 +88,12 @@ paths:
                     description: Planeta removido com sucesso
                 404:
                     description: Planeta não encontrado
+                400:
+                    description: Requisição inválida
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
     /planetas/by-nome/{nome}:
         get:
             tags:
@@ -101,12 +113,16 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/InsertedPlaneta"
+                                $ref: "#/components/schemas/PlanetaWithFilmCount"
                 404:
                     description: Planeta não encontrado
 
 components:
     schemas:
+        Error:
+            properties:
+                error:
+                    type: string
         Planeta:
             properties:
                 nome:
@@ -125,3 +141,9 @@ components:
             properties:
                 _id:
                     type: string
+        PlanetaWithFilmCount:
+            allOf:
+                - $ref: "#/components/schemas/InsertedPlaneta"
+            properties:
+                - quantidadeFilmes:
+                    type: integer

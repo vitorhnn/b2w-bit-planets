@@ -12,7 +12,7 @@ const openApiSpec = safeLoad(readFileSync(join(__dirname, 'b2w-starwars.yaml')))
 const planetasRouter = require('./routes/planetas');
 
 const app = express();
-const port = 3000;
+const port = process.env.API_PORT;
 
 app.use(bodyParser.json());
 

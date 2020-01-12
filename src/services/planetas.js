@@ -1,14 +1,22 @@
 const Planeta = require('../db/planeta');
 const ApiError = require('../ApiError');
+const { getPlanetaFilmCount } = require('./swapi');
 
-function getPlanetas() {
-  return Planeta.find({}, 'nome clima terreno');
+async function appendFilmCount(planeta) {
+  return {
+    ...planeta.toObject(),
+    quantidadeFilmes: await getPlanetaFilmCount(planeta.nome),
+  };
 }
 
-async function insertPlaneta(planetaData) {
-  const newPlaneta = await Planeta.create(planetaData);
+async function getPlanetas() {
+  const planetas = await Planeta.find({}, 'nome clima terreno');
 
-  return newPlaneta.save();
+  return Promise.all(planetas.map(appendFilmCount));
+}
+
+function insertPlaneta(planetaData) {
+  return Planeta.create(planetaData);
 }
 
 async function getPlanetaById(id) {
@@ -18,7 +26,7 @@ async function getPlanetaById(id) {
     throw new ApiError(404, 'Not found');
   }
 
-  return planeta;
+  return appendFilmCount(planeta);
 }
 
 async function deletePlaneta(id) {
@@ -27,18 +35,16 @@ async function deletePlaneta(id) {
   if (!planeta) {
     throw new ApiError(404, 'Not found');
   }
-
-  return planeta;
 }
 
 async function getPlanetaByNome(nome) {
-  const planeta = await Planeta.findOne({ nome });
+  const planeta = await Planeta.findOne({ nome }, 'nome clima terreno');
 
   if (!planeta) {
     throw new ApiError(404, 'Not found');
   }
 
-  return planeta;
+  return appendFilmCount(planeta);
 }
 
 module.exports = { getPlanetas, insertPlaneta, getPlanetaById, deletePlaneta, getPlanetaByNome };

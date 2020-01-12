@@ -11,6 +11,8 @@ services:
             - 9229:9229
         environment:
             DB_STRING: "mongodb://mongo:27017/planetas"
+            SWAPI_URL: "https://swapi.co/api"
+            API_PORT: 3000
         volumes:
             - .:/app
     mongo:

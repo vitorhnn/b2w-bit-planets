@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { Error } = require('mongoose');
 const ApiError = require('../ApiError');
 
 const service = require('../services/planetas');
@@ -52,17 +53,23 @@ router.post('/', async (req, res) => {
 });
 
 // Buscar planeta por id
-router.get('/:planetaId', async (req, res) => {
-  const { planetaId } = req.params;
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const result = await service.getPlanetaById(planetaId);
+    const result = await service.getPlanetaById(id);
 
     return res.status(200).send(result);
   } catch (err) {
     if (err instanceof ApiError) {
       return res.status(err.statusCode).send({
         error: err.message,
+      });
+    }
+
+    if (err instanceof Error.CastError) {
+      return res.status(400).send({
+        error: 'ID inválido',
       });
     }
 
@@ -85,6 +92,12 @@ router.delete('/:id', async (req, res) => {
     if (err instanceof ApiError) {
       return res.status(err.statusCode).send({
         error: err.message,
+      });
+    }
+
+    if (err instanceof Error.CastError) {
+      return res.status(400).send({
+        error: 'ID inválido',
       });
     }
 
