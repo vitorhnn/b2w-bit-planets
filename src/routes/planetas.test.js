@@ -11,7 +11,7 @@ jest.mock('../services/planetas', () => ({
   getPlanetaByNome: jest.fn(),
 }));
 
-describe('planetas router', () => {
+describe('Planetas router', () => {
   const alderaan = {
     nome: 'Alderaan',
     terreno: ['Pradaria', 'Montanhas'],
@@ -80,7 +80,7 @@ describe('planetas router', () => {
     });
   });
 
-  describe('DELETE /planeta/:id', async () => {
+  describe('DELETE /planeta/:id', () => {
     it('should return 200 and nothing else', async () => {
       service.deletePlaneta.mockImplementationOnce(async () => {});
 
@@ -92,7 +92,7 @@ describe('planetas router', () => {
     });
   });
 
-  describe('GET /planeta/by-nome/:nome', async () => {
+  describe('GET /planeta/by-nome/:nome', () => {
     it('should return 200 and planet data', async () => {
       service.getPlanetaByNome.mockResolvedValueOnce(alderaan);
 
