@@ -7,16 +7,16 @@ const service = require('../services/planetas');
 const router = new Router();
 
 function commonErrorHandler(res, err) {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).send({
-        error: err.message,
-      });
-    }
-
-    console.error(err);
-    return res.status(500).send({
-      error: 'Internal server error',
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).send({
+      error: err.message,
     });
+  }
+
+  console.error(err);
+  return res.status(500).send({
+    error: 'Internal server error',
+  });
 }
 
 // Listar planetas
