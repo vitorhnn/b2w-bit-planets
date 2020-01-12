@@ -4,5 +4,15 @@
   "extends": ["airbnb-base", "prettier"],
   "rules": {
     "no-console": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }

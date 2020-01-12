@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./db');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { readFileSync } = require('fs');

@@ -1,4 +1,4 @@
-const { Planeta } = require('../db');
+const Planeta = require('../db/planeta');
 const ApiError = require('../ApiError');
 
 function getPlanetas() {

@@ -9,9 +9,11 @@
   "scripts": {
     "start": "node src/index.js",
     "lint": "eslint --ignore-path .gitignore .",
+    "lint:formatting": "prettier --list-different \"src/**/*.js\"",
     "format": "prettier --write \"src/**/*.js\"",
     "watch": "nodemon src/index.js",
-    "debug": "node --inspect-brk=0.0.0.0 src/index.js"
+    "debug": "node --inspect-brk=0.0.0.0 src/index.js",
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -26,7 +28,16 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.20.0",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json"],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.js"
+    ]
   }
 }
