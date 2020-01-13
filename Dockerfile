@@ -2,7 +2,7 @@ FROM node:erbium-alpine
 
 RUN mkdir /app && chown -R node:node /app
 
-COPY --chown=node:node ./package.json ./app/yarn.lock
+COPY --chown=node:node ./package.json ./yarn.lock /app/
 
 USER node
 WORKDIR /app
